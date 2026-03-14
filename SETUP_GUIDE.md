@@ -53,6 +53,30 @@ cd MediConnectProjectTcs
 
 ---
 
-## 5. Important Files to Verify
+## 5. Troubleshooting: Port already in use (8080)
+If you see an error like `Port 8080 was already in use`, follow these steps:
+
+### A. Kill the blocking process (Windows)
+1. Open PowerShell/Terminal as Administrator.
+2. Find the Process ID (PID) using port 8080:
+   ```powershell
+   netstat -ano | findstr :8080
+   ```
+3. Kill the process (Replace `1234` with the actual PID from the last column):
+   ```powershell
+   taskkill /F /PID 1234
+   ```
+
+### B. Change the Port (Alternative)
+If you can't kill the other process, change the port in `mediconnect-backend/src/main/resources/application.yml`:
+```yaml
+server:
+  port: 9090
+```
+*Note: If you change this, you MUST also update the `apiUrl` in `mediconnect-frontend/src/environments/environment.ts` to reflect the new port.*
+
+---
+
+## 6. Important Files to Verify
 - **`mediconnect-backend/.gitignore`**: Ensure it's correctly ignoring your local `target/` and sensitive config.
 - **`mediconnect-frontend/src/environments/environment.ts`**: Verify the `apiUrl` points to `http://localhost:8080/api/v1`.
