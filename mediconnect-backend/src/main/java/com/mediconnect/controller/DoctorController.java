@@ -38,8 +38,8 @@ public class DoctorController {
 
     @PutMapping("/appointments/{id}/status")
     public ResponseEntity<?> updateAppointmentStatus(
-            @PathVariable Long id, 
-            @RequestParam Appointment.AppointmentStatus status,
+            @PathVariable(name = "id") Long id, 
+            @RequestParam(name = "status") Appointment.AppointmentStatus status,
             Authentication auth) {
         doctorService.updateAppointmentStatus(auth.getName(), id, status);
         return ResponseEntity.ok(java.util.Collections.singletonMap("message", "Appointment status updated"));
@@ -47,7 +47,7 @@ public class DoctorController {
 
     @PostMapping("/appointments/{id}/prescription")
     public ResponseEntity<Prescription> createPrescription(
-            @PathVariable Long id,
+            @PathVariable(name = "id") Long id,
             @Valid @RequestBody PrescriptionRequest request,
             Authentication auth) {
         return ResponseEntity.ok(doctorService.createPrescription(auth.getName(), id, request));
@@ -71,7 +71,7 @@ public class DoctorController {
 
     @PostMapping("/upload-clinical-file/{patientId}")
     public ResponseEntity<MedicalFile> uploadFileForPatient(
-            @PathVariable Long patientId,
+            @PathVariable(name = "patientId") Long patientId,
             @RequestParam("file") MultipartFile file,
             Authentication auth) {
         return ResponseEntity.ok(doctorService.uploadPatientFile(auth.getName(), patientId, file));

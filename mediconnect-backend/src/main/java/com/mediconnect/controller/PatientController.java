@@ -32,8 +32,8 @@ public class PatientController {
 
     @GetMapping("/doctors/{id}/slots")
     public ResponseEntity<List<LocalTime>> getAvailableSlots(
-            @PathVariable Long id,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+            @PathVariable(name = "id") Long id,
+            @RequestParam(name = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return ResponseEntity.ok(doctorService.getAvailableSlots(id, date));
     }
 
@@ -43,7 +43,7 @@ public class PatientController {
     }
 
     @GetMapping("/doctors/search")
-    public ResponseEntity<List<Doctor>> searchDoctors(@RequestParam(required = false) String keyword) {
+    public ResponseEntity<List<Doctor>> searchDoctors(@RequestParam(name = "keyword", required = false) String keyword) {
         return ResponseEntity.ok(patientService.searchDoctors(keyword));
     }
 

@@ -40,14 +40,14 @@ public class AdminController {
     }
 
     @PostMapping("/doctors/{doctorId}/verify")
-    public ResponseEntity<?> verifyDoctor(@PathVariable Long doctorId, @RequestParam boolean verify) {
+    public ResponseEntity<?> verifyDoctor(@PathVariable(name = "doctorId") Long doctorId, @RequestParam(name = "verify") boolean verify) {
         adminService.verifyDoctor(doctorId, verify);
         String message = verify ? "Doctor verified and activated." : "Doctor rejected.";
         return ResponseEntity.ok(java.util.Collections.singletonMap("message", message));
     }
 
     @PostMapping("/doctors/{doctorId}/toggle-status")
-    public ResponseEntity<?> toggleDoctorStatus(@PathVariable Long doctorId) {
+    public ResponseEntity<?> toggleDoctorStatus(@PathVariable(name = "doctorId") Long doctorId) {
         adminService.toggleDoctorActiveStatus(doctorId);
         return ResponseEntity.ok(java.util.Collections.singletonMap("message", "Doctor status toggled successfully."));
     }

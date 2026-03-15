@@ -26,7 +26,7 @@ public class FileController {
     private final MedicalFileRepository medicalFileRepository;
 
     @GetMapping("/view/{id}")
-    public ResponseEntity<Resource> viewFile(@PathVariable Long id) {
+    public ResponseEntity<Resource> viewFile(@PathVariable(name = "id") Long id) {
         MedicalFile medicalFile = medicalFileRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("File not found"));
 

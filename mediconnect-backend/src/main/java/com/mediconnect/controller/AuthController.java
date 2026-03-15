@@ -37,7 +37,7 @@ public class AuthController {
     }
 
     @GetMapping("/search/doctors")
-    public ResponseEntity<List<Doctor>> searchDoctors(@RequestParam(required = false) String keyword) {
+    public ResponseEntity<List<Doctor>> searchDoctors(@RequestParam(name = "keyword", required = false) String keyword) {
         return ResponseEntity.ok(authService.searchDoctors(keyword));
     }
 }

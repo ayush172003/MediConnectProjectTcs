@@ -27,5 +27,9 @@ jwt:
 server:
   port: 8080
 
+logging:
+  level:
+    com.mediconnect: INFO
+
 file:
   upload-dir: uploads/medical-docs

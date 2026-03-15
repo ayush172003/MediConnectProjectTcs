@@ -43,9 +43,11 @@ public class PatientService {
     public List<Doctor> searchDoctors(String keyword) {
         return doctorRepository.findByVerificationStatus(Doctor.VerificationStatus.VERIFIED)
                 .stream()
-                .filter(d -> keyword == null || keyword.isBlank() ||
-                             d.getName().toLowerCase().contains(keyword.toLowerCase()) ||
-                             d.getSpecialization().toLowerCase().contains(keyword.toLowerCase()))
+                .filter(d -> {
+                    boolean nameMatch = d.getName().toLowerCase().contains(keyword != null ? keyword.toLowerCase() : "");
+                    boolean specMatch = d.getSpecialization().toLowerCase().contains(keyword != null ? keyword.toLowerCase() : "");
+                    return keyword == null || keyword.isBlank() || nameMatch || specMatch;
+                })
                 .collect(Collectors.toList());
     }
 
